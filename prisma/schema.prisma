@@ -21,3 +21,148 @@ model Post {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 }
+
+model Product {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String
+  price       Decimal
+  images      String[]
+
+  categoryId String   @unique
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  InventoryItem InventoryItem[]
+  CartItem      CartItem[]
+  OrderItem     OrderItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+model Order {
+  id          String      @id @default(uuid())
+  totalAmount Decimal
+  status      OrderStatus @default(PENDING)
+  orderItems  OrderItem[]
+
+  userId            String
+  user              User    @relation(fields: [userId], references: [id])
+  shippingAddressId String
+  billingAddressId  String
+  shippingAddress   Address @relation("shippingAddress", fields: [shippingAddressId], references: [id])
+  billingAddress    Address @relation("billingAddress", fields: [billingAddressId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+enum UserRole {
+  CUSTOMER
+  ADMIN
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  firstName String
+  lastName  String
+  role      UserRole @default(CUSTOMER)
+  orders    Order[]
+  cart      Cart?
+  address   Address?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Category {
+  id          String    @id @default(uuid())
+  name        String
+  description String
+  products    Product[]
+}
+
+model Cart {
+  id String @id @default(uuid())
+
+  userId    String     @unique
+  user      User       @relation(fields: [userId], references: [id])
+  cartItems CartItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model CartItem {
+  id       String @id @default(uuid())
+  quantity Int
+
+  cartId    String
+  cart      Cart    @relation(fields: [cartId], references: [id])
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model OrderItem {
+  id       String  @id @default(uuid())
+  quantity Int
+  price    Decimal
+
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id])
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model Address {
+  id           String  @id @default(uuid())
+  userId       String  @unique
+  user         User    @relation(fields: [userId], references: [id])
+  addressLine1 String
+  addressLine2 String?
+  city         String
+  state        String
+  country      String
+  postalCode   String
+  phoneNumber  String
+
+  shipping Order[] @relation("shippingAddress")
+  billing  Order[] @relation("billingAddress")
+}
+
+model InventoryItem {
+  id          String    @id @default(uuid())
+  quantity    Int
+  productId   String
+  product     Product   @relation(fields: [productId], references: [id])
+  inventoryId String
+  inventory   Inventory @relation(fields: [inventoryId], references: [id])
+}
+
+model Inventory {
+  id       String          @id @default(uuid())
+  quantity Int
+  products InventoryItem[]
+}
+
+// model Payment {
+//   id String @id @default(uuid())
+//   amount: total payment amount
+//   status: payment status (e.g., pending, completed, failed)
+//   paymentMethod: payment method (e.g., credit card, PayPal)
+//   transactionId: unique transaction identifier from the payment provider
+//
+//   orderId Int
+//   order   Order @relation(fields: [orderId], references: [id])
+// }
