@@ -7,13 +7,15 @@ import { detailsSchema, indexSchema } from './sharedSchemas';
 // const defaultProductSelect
 const DEFAULT_LIMIT = 20;
 
-const productSchema = z.object({
+export const productSchema = z.object({
   id: z.string().uuid().optional(),
   name: z.string().min(1).max(32),
   description: z.string().min(1),
   price: z.number().positive(),
-  categoryId: z.string().min(1),
+  categoryId: z.string().min(1).optional(),
 });
+
+export type ProductType = z.infer<typeof productSchema>;
 
 export const productRouter = router({
   list: publicProcedure.input(indexSchema).query(async ({ input }) => {
