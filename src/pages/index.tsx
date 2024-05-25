@@ -39,22 +39,9 @@ const IndexPage: NextPageWithLayout = () => {
         Welcome to your tRPC with Prisma starter!
       </h1>
       <p className="text-gray-400">
-        If you get stuck, check{' '}
-        <Link className="underline" href="https://trpc.io">
-          the docs
+        <Link className="underline" href="/product">
+          Products
         </Link>
-        , write a message in our{' '}
-        <Link className="underline" href="https://trpc.io/discord">
-          Discord-channel
-        </Link>
-        , or write a message in{' '}
-        <Link
-          className="underline"
-          href="https://github.com/trpc/trpc/discussions"
-        >
-          GitHub Discussions
-        </Link>
-        .
       </p>
 
       <div className="flex flex-col py-8 items-start gap-y-2">
