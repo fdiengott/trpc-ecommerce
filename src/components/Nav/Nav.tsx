@@ -1,6 +1,7 @@
 import styles from './nav.module.scss';
 import { ShoppingCartIcon } from 'lucide-react';
 import Link from 'next/link';
+import LoginLogout from '../LoginLogout';
 
 const Nav = () => {
   return (
@@ -56,12 +57,7 @@ const Nav = () => {
           ' flex items-center space-x-4 md:space-x-6 lg:space-x-8'
         }
       >
-        <Link
-          className="text-sm font-medium hover:underline underline-offset-4"
-          href="#"
-        >
-          Login
-        </Link>
+        <LoginLogout className="text-sm font-medium hover:underline underline-offset-4" />
         <Link
           className="text-sm font-medium hover:underline underline-offset-4"
           href="#"

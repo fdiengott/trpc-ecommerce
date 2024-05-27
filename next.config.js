@@ -1,6 +1,7 @@
 // @ts-check
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { env } = require('./src/server/env');
+const path = require('path');
 
 /**
  * Don't be scared of the generics here.
@@ -32,4 +33,8 @@ module.exports = getConfig({
   typescript: {
     ignoreBuildErrors: true,
   },
+  sassOptions: {
+    includePaths: [path.join(__dirname, 'styles')],
+  },
+  transpilePackages: ['next-auth'],
 });
