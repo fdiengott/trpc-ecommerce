@@ -1,0 +1,23 @@
+.auth-btn {
+    display: flex;
+    place-items: center;
+    outline-style: solid;
+    outline-color: #e5e7eb;
+    outline-width: 1px;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    transition: outline-width 0.2s;
+}
+
+.auth-btn {
+    border: none;
+}
+
+.auth-btn:focus-within {
+    outline-width: 3px;
+}
+
+.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
