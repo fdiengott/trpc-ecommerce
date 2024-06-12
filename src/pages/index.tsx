@@ -51,13 +51,6 @@ const IndexPage: NextPageWithLayout = () => {
 
 export default IndexPage;
 
-/**
- * If you want to statically render this page
- * - Export `appRouter` & `createContext` from [trpc].ts
- * - Make the `opts` object optional on `createContext()`
- *
- * @link https://trpc.io/docs/v11/ssg
- */
 export const getStaticProps: GetStaticProps = async (context) => {
     const helpers = createServerSideHelpers({
         router: appRouter,
@@ -75,22 +68,3 @@ export const getStaticProps: GetStaticProps = async (context) => {
         revalidate: 1,
     };
 };
-
-// export const getStaticPaths: GetStaticPaths = async () => {
-//     // const { products } = await appRouter.product.list();
-//     const products = await prisma.product.findMany({
-//         // take: 10,
-//         // orderBy: {
-//         //     createdAt: 'desc',
-//         // },
-//     });
-//
-//     const paths = products.map((product) => ({
-//         params: { id: product?.id },
-//     }));
-//
-//     return {
-//         paths,
-//         fallback: 'blocking',
-//     };
-// };
