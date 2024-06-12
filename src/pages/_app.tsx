@@ -8,25 +8,24 @@ import '~/styles/globals.css';
 import Providers from './Providers';
 
 export type NextPageWithLayout<
-  TProps = Record<string, unknown>,
-  TInitialProps = TProps,
+    TProps = Record<string, unknown>,
+    TInitialProps = TProps,
 > = NextPage<TProps, TInitialProps> & {
-  getLayout?: (page: ReactElement) => ReactNode;
+    getLayout?: (page: ReactElement) => ReactNode;
 };
 
 type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout;
+    Component: NextPageWithLayout;
 };
 
 const MyApp = (({ Component, pageProps }: AppPropsWithLayout) => {
-  const getLayout =
-    Component.getLayout ?? ((page) => <DefaultLayout>{page}</DefaultLayout>);
+    const getLayout =
+        Component.getLayout ??
+        ((page) => <DefaultLayout>{page}</DefaultLayout>);
 
-  return getLayout(
-    <Providers>
-      <Component {...pageProps} />
-    </Providers>,
-  );
+    const page = getLayout(<Component {...pageProps} />);
+
+    return <Providers>{page}</Providers>;
 }) as AppType;
 
 export default trpc.withTRPC(MyApp);

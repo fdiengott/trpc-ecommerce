@@ -6,7 +6,10 @@ import LoginLogout from '../LoginLogout';
 const Nav = () => {
     return (
         <header className={styles.header}>
-            <h1 className="text-4xl font-bold">Finger Lakes Harvest</h1>
+            <Link href="/">
+                {/*  TODO: make this work on mobile */}
+                <div className="text-4xl font-bold">Finger Lakes Harvest</div>
+            </Link>
             <nav className="flex items-center space-x-4 md:space-x-6 lg:space-x-8">
                 <Link
                     className="text-sm font-medium hover:underline underline-offset-4"

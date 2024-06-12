@@ -2,10 +2,8 @@ import superjson from 'superjson';
 import { createServerSideHelpers } from '@trpc/react-query/server';
 import NextError from 'next/error';
 import { GetStaticProps } from 'next';
-import Head from 'next/head';
 import { trpc } from '../utils/trpc';
 import { appRouter, createContext } from './api/trpc/[trpc]';
-import Nav from '~/components/Nav/Nav';
 import Products from '../components/Products/Products';
 
 import type { NextPageWithLayout } from './_app';
@@ -37,15 +35,9 @@ const IndexPage: NextPageWithLayout = () => {
     }
 
     return (
-        <div className="flex flex-col bg-gray-800 py-8">
-            <Head>
-                <title>e-commerce site</title>
-            </Head>
-            <Nav />
-            <section>
-                <Products products={data?.products as ProductType[]} />
-            </section>
-        </div>
+        <section className="flex flex-col bg-gray-800 py-8">
+            <Products products={data?.products as ProductType[]} />
+        </section>
     );
 };
 
