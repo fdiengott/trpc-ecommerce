@@ -8,18 +8,13 @@ import Products from '../components/Products/Products';
 
 import type { NextPageWithLayout } from './_app';
 import type { ProductType } from '~/server/routers/product';
+import { useState } from 'react';
 
 const IndexPage: NextPageWithLayout = () => {
-    const productQuery = trpc.product.list.useQuery(
-        { limit: 10 },
-        // {
-        //     getNextPageParam(lastPage) {
-        //         return lastPage.nextCursor;
-        //     },
-        // },
-    );
+    const [page, setPage] = useState(0);
 
-    const { isLoading, data, isError } = productQuery;
+    const { isLoading, data, isError, error, refetch } =
+        trpc.product.list.useQuery({ limit: 10, page });
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -28,15 +23,23 @@ const IndexPage: NextPageWithLayout = () => {
     if (isError) {
         return (
             <NextError
-                title={productQuery.error.message}
-                statusCode={productQuery.error.data?.httpStatus ?? 500}
+                title={error.message}
+                statusCode={error.data?.httpStatus ?? 500}
             />
         );
     }
 
+    const handleLoadMore = () => {
+        setPage((prevPage) => prevPage + 1);
+        refetch();
+    };
+
     return (
         <section className="flex flex-col bg-gray-800 py-8">
             <Products products={data?.products as ProductType[]} />
+            <button onClick={handleLoadMore} disabled={isLoading}>
+                Next
+            </button>
         </section>
     );
 };
