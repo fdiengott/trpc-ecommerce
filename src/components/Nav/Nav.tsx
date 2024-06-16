@@ -1,7 +1,12 @@
-import styles from './nav.module.scss';
+import styles from './Nav.module.scss';
 import { ShoppingCartIcon } from 'lucide-react';
 import Link from 'next/link';
 import LoginLogout from '../LoginLogout';
+import dynamic from 'next/dynamic';
+
+const CartQuantity = dynamic(() => import('./CartQuantity'), {
+    ssr: false,
+});
 
 const Nav = () => {
     return (
@@ -60,13 +65,17 @@ const Nav = () => {
                     ' flex items-center space-x-4 md:space-x-6 lg:space-x-8'
                 }
             >
-                <LoginLogout className="text-sm font-medium hover:underline underline-offset-4" />
+                <LoginLogout className="text-sm font-medium hover:underline underline-offset-4 " />
                 <Link
-                    className="text-sm font-medium hover:underline underline-offset-4"
-                    href="#"
+                    className={
+                        'text-sm font-medium hover:underline underline-offset-4 ' +
+                        styles['cart-quantity-wrapper']
+                    }
+                    href="/cart"
                 >
                     <ShoppingCartIcon className="w-5 h-5" />
                     <span className="sr-only">Cart</span>
+                    <CartQuantity />
                 </Link>
             </div>
         </header>

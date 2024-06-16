@@ -1,0 +1,15 @@
+.success svg {
+    stroke-dasharray: 30 80;
+    stroke-dashoffset: -30;
+
+    animation: success 500ms ease-in-out forwards;
+}
+
+@keyframes success {
+    0% {
+        stroke-dashoffset: -30;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
