@@ -2,11 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer reset {
+    ul > li {
+        list-style: none;
+    }
+
+    button,
+    h1,
+    h2,
+    h2,
+    h2,
+    h4 {
+        all: unset;
+    }
+}
+
 @layer base {
-  body {
-    height: 100vh;
-    background-color: rgb(31 41 55);
-    color: #fff;
-    padding: 0 32px;
-  }
+    body {
+        height: 100vh;
+        background-color: rgb(31 41 55);
+        color: #fff;
+        padding: 0 32px;
+    }
 }
