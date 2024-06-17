@@ -19,6 +19,16 @@ function getConfig(config) {
  * @link https://nextjs.org/docs/api-reference/next.config.js/introduction
  */
 module.exports = getConfig({
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'fingerlakes-images.s3.amazonaws.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
+  },
   /**
    * Dynamic configuration available for the browser and server.
    * Note: requires `ssr: true` or a `getInitialProps` in `_app.tsx`
