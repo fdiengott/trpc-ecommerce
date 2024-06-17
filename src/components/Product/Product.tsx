@@ -8,10 +8,10 @@ import {
     SelectContent,
     Select,
 } from '~/components/ui/select';
-import { Button } from '~/components/ui/button';
 import Link from 'next/link';
 import { useShoppingCart } from '~/hooks/useShoppingCart';
-import CartButton from '../CartButton';
+import CartButton from '../ShoppingCart/CartButton';
+import Image from 'next/image';
 
 type ProductProps = { product: ProductType };
 
@@ -27,11 +27,11 @@ const Product = ({ product }: ProductProps) => {
             }
         >
             <Link href={`/product/${product.id}`}>
-                <img
+                <Image
                     alt="Product 1"
                     className="w-full h-48 object-cover"
                     height="200"
-                    src="/placeholder.svg"
+                    src={product.images.at(0) || '/placeholder.svg'}
                     style={{
                         aspectRatio: '300/200',
                         objectFit: 'cover',
@@ -63,16 +63,12 @@ const Product = ({ product }: ProductProps) => {
                             <SelectItem value="5">5</SelectItem>
                         </SelectContent>
                     </Select>
-                    <CartButton id={product.id} onClick={() => increaseItemQuantity(product.id, quantity)} />
-                    {/* <Button */}
-                    {/*     className="flex-1" */}
-                    {/*     size="sm" */}
-                    {/*     onClick={() => { */}
-                    {/*         increaseItemQuantity(product.id, quantity); */}
-                    {/*     }} */}
-                    {/* > */}
-                    {/*     Add to cart */}
-                    {/* </Button> */}
+                    <CartButton
+                        id={product.id}
+                        onClick={() =>
+                            increaseItemQuantity(product.id, quantity)
+                        }
+                    />
                 </div>
             </div>
         </li>
