@@ -12,8 +12,6 @@ type CartProviderProps = {
 type CartItemId = string;
 type CartItemQuantity = number;
 
-type UpdateStorageStatuses =
-    (typeof updateStorageStatuses)[keyof typeof updateStorageStatuses];
 type CartContextType = {
     getItemQuantity: (itemId: string) => number;
     increaseItemQuantity: (itemId: string, quantity: number) => void;
@@ -61,7 +59,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     ) => {
         handleUpdateStorageStatus(itemId, () => {
             setCartItems((currItems) => {
-                const newQuantity = (currItems[itemId] || 0) + quantity;
+                const newQuantity = (currItems[itemId] ?? 0) + quantity;
 
                 return { ...currItems, [itemId]: newQuantity };
             });
@@ -85,7 +83,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
         quantity: CartItemQuantity = 1,
     ) => {
         setCartItems((currItems) => {
-            const newQuantity = currItems[itemId] || 0 - quantity;
+            const newQuantity = currItems[itemId] ?? 0 - quantity;
 
             if (newQuantity <= 0) {
                 removeItemFromCart(itemId)(currItems);

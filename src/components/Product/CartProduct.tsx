@@ -32,7 +32,7 @@ const CartProduct = ({
                     alt="Product Image"
                     className="rounded-md mr-4"
                     height={80}
-                    src={images?.[0] || '/placeholder.svg'}
+                    src={images?.[0] ?? '/placeholder.svg'}
                     style={{
                         aspectRatio: '80/80',
                         objectFit: 'cover',

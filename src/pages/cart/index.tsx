@@ -26,7 +26,9 @@ const Page = () => {
         );
     }
 
-    const subTotal = data?.reduce((acc, product) => {
+    const cartProducts = data?.filter((product) => cartItems[product.id]);
+
+    const subTotal = cartProducts?.reduce((acc, product) => {
         return acc + product.price * (cartItems[product.id] as number);
     }, 0);
 
@@ -34,7 +36,7 @@ const Page = () => {
         <div>
             <h1 className="text-2xl font-bold mb-6">Shopping Cart</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {data?.map((product) => (
+                {cartProducts?.map((product) => (
                     <CartProduct
                         {...product}
                         key={product.id}

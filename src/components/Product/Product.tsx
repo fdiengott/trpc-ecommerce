@@ -31,7 +31,7 @@ const Product = ({ product }: ProductProps) => {
                     alt="Product 1"
                     className="w-full h-48 object-cover"
                     height="200"
-                    src={product.images.at(0) || '/placeholder.svg'}
+                    src={product.images.at(0) ?? '/placeholder.svg'}
                     style={{
                         aspectRatio: '300/200',
                         objectFit: 'cover',

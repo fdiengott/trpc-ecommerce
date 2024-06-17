@@ -19,7 +19,7 @@ export type ProductType = WithRequired<z.infer<typeof productSchema>, 'id'>;
 
 export const productRouter = router({
     list: publicProcedure.input(indexSchema).query(async ({ input }) => {
-        const limit = input?.limit || PRODUCTS_PER_PAGE;
+        const limit = input?.limit ?? PRODUCTS_PER_PAGE;
         const page = input?.page;
 
         const products = await prisma.product.findMany({
