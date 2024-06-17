@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import type { ReactNode } from 'react';
-import Nav from './Nav/Nav';
+import Nav from '../Nav/Nav';
 
 type DefaultLayoutProps = { children: ReactNode };
 

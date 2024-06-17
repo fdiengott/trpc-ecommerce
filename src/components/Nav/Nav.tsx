@@ -1,7 +1,7 @@
 import styles from './Nav.module.scss';
 import { ShoppingCartIcon } from 'lucide-react';
 import Link from 'next/link';
-import LoginLogout from '../LoginLogout';
+import LoginLogout from '../Auth/LoginLogout';
 import dynamic from 'next/dynamic';
 
 const CartQuantity = dynamic(() => import('./CartQuantity'), {
