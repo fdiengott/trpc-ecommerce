@@ -11,6 +11,7 @@ export const productSchema = z.object({
     name: z.string().min(1).max(32),
     description: z.string().min(1),
     price: z.number().positive(),
+    quantity: z.number().positive().optional(),
     categoryId: z.string().min(1).optional(),
     images: z.array(z.string().url()),
 });
