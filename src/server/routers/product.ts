@@ -81,4 +81,28 @@ export const productRouter = router({
 
         return product;
     }),
+    delete: protectedProcedure
+        .input(detailsSchema)
+        .mutation(async ({ input }) => {
+            const { id } = input;
+
+            try {
+                const product = await prisma.product.delete({
+                    where: { id },
+                });
+
+                if (!product) {
+                    throw new TRPCError({
+                        code: 'NOT_FOUND',
+                        message: `No product with id ${id}`,
+                    });
+                }
+
+                return true;
+            } catch (error) {
+                console.error(error);
+
+                return false;
+            }
+        }),
 });
