@@ -11,14 +11,39 @@ export const productSchema = z.object({
     name: z.string().min(1).max(32),
     description: z.string().min(1),
     price: z.number().positive(),
-    quantity: z.number().positive().optional(),
+    inventory: z.number().positive().optional(),
     categoryId: z.string().min(1).optional(),
     images: z.array(z.string().url()),
+});
+export const searchSchema = z.object({
+    searchTerm: z.string().min(1),
 });
 
 export type ProductType = WithRequired<z.infer<typeof productSchema>, 'id'>;
 
 export const productRouter = router({
+    search: publicProcedure.input(searchSchema).query(async ({ input }) => {
+        const { searchTerm } = input;
+
+        const products = await prisma.product.findMany({
+            where: {
+                name: {
+                    contains: searchTerm,
+                },
+            },
+            take: PRODUCTS_PER_PAGE,
+            orderBy: {
+                // createdAt: 'desc',
+                _relevance: {
+                    fields: ['name'],
+                    search: 'database',
+                    sort: 'asc',
+                },
+            },
+        });
+
+        return products;
+    }),
     list: publicProcedure.input(indexSchema).query(async ({ input }) => {
         const limit = input?.limit ?? PRODUCTS_PER_PAGE;
         const page = input?.page;
